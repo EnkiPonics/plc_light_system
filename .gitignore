@@ -1,6 +1,9 @@
 # Konzept-Dokumente (lokal, nicht versioniert)
 docs/concepts/
 
+# Lokale Zugangsdaten (nie einchecken!)
+scripts/.env
+
 # Python
 __pycache__/
 *.py[cod]
