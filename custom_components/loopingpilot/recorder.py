@@ -39,12 +39,13 @@ async def fetch_history(
             end,
             entity_ids=entity_ids,
             significant_changes_only=True,
-            minimal_response=True,
+            minimal_response=False,
+            no_attributes=True,
         )
         result: dict[str, list[dict[str, Any]]] = {}
         for entity_id, state_list in states.items():
             result[entity_id] = [
-                {"ts": s.last_changed.timestamp(), "value": s.state}
+                {"ts": s.last_updated.timestamp(), "value": s.state}
                 for s in state_list
                 if s.state not in ("unknown", "unavailable")
             ]
