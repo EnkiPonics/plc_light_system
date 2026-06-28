@@ -348,7 +348,7 @@ class LoopingPilotConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="outbound",
             data_schema=vol.Schema({
                 vol.Required(CONF_ENDPOINT_URL): TextSelector(
-                    TextSelectorConfig(type=TextSelectorType.URL)
+                    TextSelectorConfig(type=TextSelectorType.TEXT)
                 ),
                 vol.Optional(CONF_API_KEY): TextSelector(
                     TextSelectorConfig(type=TextSelectorType.PASSWORD)
