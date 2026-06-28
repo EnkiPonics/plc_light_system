@@ -90,9 +90,7 @@
       "cannot_connect": "Verbindung zum LoopingPilot-Endpunkt fehlgeschlagen.",
       "invalid_api_key": "Ungültiger API-Schlüssel."
     },
-    "abort": {
-      "already_configured": "Ein Loop ist bereits konfiguriert. Weitere Loops als separate Integration hinzufügen."
-    }
+    "abort": {}
   },
   "options": {
     "step": {

@@ -96,8 +96,6 @@ class LoopingPilotConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
-        if self._async_current_entries():
-            return self.async_abort(reason="already_configured")
         if user_input is not None:
             self._loop_name = user_input[CONF_LOOP_NAME]
             return await self.async_step_greenhouses_count()
