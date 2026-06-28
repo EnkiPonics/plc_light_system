@@ -1,0 +1,54 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "LoopingPilot Adapter",
+        "description": "Konfiguration folgt in Phase 2. Klicke auf Senden um fortzufahren."
+      },
+      "loops": {
+        "title": "Loops definieren",
+        "description": "Lege die physischen Kreisläufe (Loops) fest, die LoopingPilot überwachen soll.",
+        "data": {
+          "loop_id": "Loop-ID (z. B. loop_1)",
+          "loop_name": "Name (z. B. Fischtank + Pflanzenbett A)"
+        }
+      },
+      "mapping": {
+        "title": "Sensor-Zuordnung",
+        "description": "Weise HA-Sensor-Entities den Rollen des Loops zu.",
+        "data": {
+          "entity_id": "Sensor-Entity",
+          "role": "Rolle"
+        }
+      },
+      "outbound": {
+        "title": "LoopingPilot-Verbindung",
+        "description": "Konfiguriere den Endpunkt, an den die Daten gesendet werden.",
+        "data": {
+          "endpoint_url": "Endpunkt-URL",
+          "api_key": "API-Schlüssel",
+          "interval_seconds": "Sendeintervall (Sekunden)",
+          "lookback_seconds": "History-Zeitfenster (Sekunden)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zum LoopingPilot-Endpunkt fehlgeschlagen.",
+      "invalid_api_key": "Ungültiger API-Schlüssel."
+    },
+    "abort": {
+      "already_configured": "LoopingPilot ist bereits konfiguriert."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Einstellungen anpassen",
+        "data": {
+          "interval_seconds": "Sendeintervall (Sekunden)",
+          "lookback_seconds": "History-Zeitfenster (Sekunden)"
+        }
+      }
+    }
+  }
+}

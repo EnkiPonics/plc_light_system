@@ -1,0 +1,15 @@
+{
+  "domain": "loopingpilot",
+  "name": "LoopingPilot Adapter",
+  "version": "0.1.0",
+  "documentation": "https://github.com/EnkiPonics/plc_light_system",
+  "issue_tracker": "https://github.com/EnkiPonics/plc_light_system/issues",
+  "dependencies": ["recorder"],
+  "after_dependencies": ["mqtt"],
+  "codeowners": ["@EnkiPonics"],
+  "config_flow": true,
+  "iot_class": "local_polling",
+  "quality_scale": "internal",
+  "requirements": [],
+  "homeassistant": "2024.1.0"
+}
