@@ -1,0 +1,110 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Define Loop",
+        "description": "A Loop is a closed water circuit (e.g. fish tank + biofilter + plant bed).",
+        "data": {
+          "loop_name": "Loop name"
+        }
+      },
+      "greenhouses_count": {
+        "title": "Greenhouses",
+        "description": "How many greenhouses belong to this Loop? (0 = none)",
+        "data": {
+          "gh_count": "Number of greenhouses"
+        }
+      },
+      "greenhouse": {
+        "title": "Greenhouse {current} of {total}",
+        "description": "Name and volume of this greenhouse.",
+        "data": {
+          "gh_name": "Name",
+          "gh_volume_m3": "Volume (m³)"
+        }
+      },
+      "fish_tanks_count": {
+        "title": "Fish Tanks",
+        "description": "How many fish tanks belong to this Loop?",
+        "data": {
+          "ft_count": "Number of fish tanks"
+        }
+      },
+      "fish_tank": {
+        "title": "Fish Tank {current} of {total}",
+        "description": "Name, volume and optional greenhouse assignment.",
+        "data": {
+          "ft_name": "Name",
+          "ft_volume_l": "Volume (litres)",
+          "ft_greenhouse": "Greenhouse (optional)"
+        }
+      },
+      "plant_beds_count": {
+        "title": "Plant Beds",
+        "description": "How many plant beds belong to this Loop?",
+        "data": {
+          "pb_count": "Number of plant beds"
+        }
+      },
+      "plant_bed": {
+        "title": "Plant Bed {current} of {total}",
+        "description": "Name, volume, substrate type and optional greenhouse assignment.",
+        "data": {
+          "pb_name": "Name",
+          "pb_volume_l": "Volume (litres)",
+          "pb_medium": "Substrate type",
+          "pb_greenhouse": "Greenhouse (optional)"
+        }
+      },
+      "sensor_mapping": {
+        "title": "Sensors: {component_name} ({current}/{total})",
+        "description": "Assign HA sensor entities to measurement roles. All fields are optional — unmapped roles are ignored.",
+        "data": {
+          "water_temp": "Water temperature (°C)",
+          "ph": "pH value",
+          "do": "Dissolved oxygen – DO (mg/L)",
+          "ec": "Electrical conductivity – EC (µS/cm)",
+          "water_level": "Water level (cm / %)",
+          "soil_temp": "Substrate temperature (°C)",
+          "substrate_moisture": "Substrate moisture (%)",
+          "air_temp": "Air temperature (°C)",
+          "humidity": "Relative humidity (%)",
+          "co2": "CO₂ concentration (ppm)",
+          "par_ppfd": "PAR / PPFD (µmol/m²/s)",
+          "vpd": "Vapour pressure deficit – VPD (kPa)",
+          "leaf_temp": "Leaf surface temperature – IR (°C)"
+        }
+      },
+      "outbound": {
+        "title": "LoopingPilot connection",
+        "description": "Endpoint to which the time-series data will be sent.",
+        "data": {
+          "endpoint_url": "Endpoint URL",
+          "api_key": "API key (optional)",
+          "interval_seconds": "Send interval (seconds)",
+          "lookback_seconds": "History window (seconds)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to LoopingPilot endpoint.",
+      "invalid_api_key": "Invalid API key."
+    },
+    "abort": {
+      "already_configured": "A Loop is already configured. Add further Loops as separate integrations."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Connection settings",
+        "data": {
+          "endpoint_url": "Endpoint URL",
+          "api_key": "API key",
+          "interval_seconds": "Send interval (seconds)",
+          "lookback_seconds": "History window (seconds)"
+        }
+      }
+    }
+  }
+}
