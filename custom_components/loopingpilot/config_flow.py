@@ -23,9 +23,11 @@ from homeassistant.helpers.selector import (
 )
 
 from .const import (
+    AQUAPONIC_SENSOR_ROLES,
     COMPONENT_FISH_TANK,
     COMPONENT_GREENHOUSE,
     COMPONENT_PLANT_BED,
+    ENVIRONMENT_SENSOR_ROLES,
     CONF_API_KEY,
     CONF_ENDPOINT_URL,
     CONF_FISH_TANKS,
@@ -50,10 +52,13 @@ from .const import (
     DEFAULT_INTERVAL_SECONDS,
     DEFAULT_LOOKBACK_SECONDS,
     DOMAIN,
+    HYDROPONIC_SENSOR_ROLES,
     MEDIUM_HYDROPONIC,
     MEDIUM_SOIL,
     NO_GREENHOUSE,
+    PLANT_BED_ROLES_BY_MEDIUM,
     ROLES_BY_COMPONENT,
+    SENSOR_TYPE_NAME,
 )
 
 
@@ -282,11 +287,30 @@ class LoopingPilotConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     def _build_mapping_queue(self) -> None:
         self._mapping_queue = []
         for ft in self._fish_tanks:
-            self._mapping_queue.append({"type": COMPONENT_FISH_TANK, "id": ft[CONF_FT_ID], "name": ft[CONF_FT_NAME]})
+            self._mapping_queue.append({
+                "type": COMPONENT_FISH_TANK,
+                "id": ft[CONF_FT_ID],
+                "name": ft[CONF_FT_NAME],
+                "sensor_type": "Aquaponic Sensor",
+                "roles": AQUAPONIC_SENSOR_ROLES,
+            })
         for pb in self._plant_beds:
-            self._mapping_queue.append({"type": COMPONENT_PLANT_BED, "id": pb[CONF_PB_ID], "name": pb[CONF_PB_NAME]})
+            medium = pb[CONF_PB_MEDIUM]
+            self._mapping_queue.append({
+                "type": COMPONENT_PLANT_BED,
+                "id": pb[CONF_PB_ID],
+                "name": pb[CONF_PB_NAME],
+                "sensor_type": SENSOR_TYPE_NAME[medium],
+                "roles": PLANT_BED_ROLES_BY_MEDIUM[medium],
+            })
         for gh in self._greenhouses:
-            self._mapping_queue.append({"type": COMPONENT_GREENHOUSE, "id": gh[CONF_GH_ID], "name": gh[CONF_GH_NAME]})
+            self._mapping_queue.append({
+                "type": COMPONENT_GREENHOUSE,
+                "id": gh[CONF_GH_ID],
+                "name": gh[CONF_GH_NAME],
+                "sensor_type": "Environment Sensor",
+                "roles": ENVIRONMENT_SENSOR_ROLES,
+            })
         self._mapping_idx = 0
 
     # ------------------------------------------------------------------
@@ -299,7 +323,7 @@ class LoopingPilotConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if not self._mapping_queue:
             return await self.async_step_outbound()
         component = self._mapping_queue[self._mapping_idx]
-        roles = ROLES_BY_COMPONENT[component["type"]]
+        roles: list[str] = component["roles"]
         if user_input is not None:
             self._sensor_mapping[component["id"]] = {
                 role: user_input.get(role) or None for role in roles
@@ -316,7 +340,7 @@ class LoopingPilotConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             }),
             description_placeholders={
                 "component_name": component["name"],
-                "component_type": component["type"],
+                "sensor_type": component["sensor_type"],
                 "current": str(self._mapping_idx + 1),
                 "total": str(len(self._mapping_queue)),
             },

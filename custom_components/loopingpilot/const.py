@@ -19,9 +19,11 @@ MEDIUM_SOIL = "soil"               # Substrat / Erde / Wasser läuft durch
 NO_GREENHOUSE = "__none__"
 
 # ---------------------------------------------------------------------------
-# Sensor roles per component type
+# Sensor-Produkte und ihre Messrollen
 # ---------------------------------------------------------------------------
-FISH_TANK_ROLES: list[str] = [
+
+# Aquaponic Sensor – Wasserqualität (Fish Tanks + hydroponic Plant Beds)
+AQUAPONIC_SENSOR_ROLES: list[str] = [
     "water_temp",    # °C       – Wassertemperatur
     "ph",            # pH       – pH-Wert
     "do",            # mg/L     – gelöster Sauerstoff (Dissolved Oxygen)
@@ -29,14 +31,17 @@ FISH_TANK_ROLES: list[str] = [
     "water_level",   # cm / %   – Wasserstand
 ]
 
-PLANT_BED_ROLES: list[str] = [
-    "soil_temp",           # °C   – Substrat-/Bodentemperatur
-    "substrate_moisture",  # %    – Substratfeuchte
-    "ph",                  # pH   – pH-Wert
+# Hydroponic Sensor – Substrat/Boden (soil Plant Beds)
+# Hinweis: Bezeichnung aus Produktspezifikation; ggf. umbenennen (offene Entscheidung)
+HYDROPONIC_SENSOR_ROLES: list[str] = [
+    "soil_temp",           # °C    – Substrat-/Bodentemperatur
+    "substrate_moisture",  # %     – Substratfeuchte
+    "ph",                  # pH    – pH-Wert
     "ec",                  # µS/cm – elektrische Leitfähigkeit (Nährstoffe)
 ]
 
-GREENHOUSE_ROLES: list[str] = [
+# Environment Sensor – Klima (Greenhouses)
+ENVIRONMENT_SENSOR_ROLES: list[str] = [
     "air_temp",   # °C         – Lufttemperatur
     "humidity",   # %          – relative Luftfeuchtigkeit
     "co2",        # ppm        – CO₂-Konzentration
@@ -45,10 +50,26 @@ GREENHOUSE_ROLES: list[str] = [
     "leaf_temp",  # °C         – Blatttemperatur (IR, Kondensationsrisiko)
 ]
 
+# Aliases für Rückwärtskompatibilität
+FISH_TANK_ROLES = AQUAPONIC_SENSOR_ROLES
+GREENHOUSE_ROLES = ENVIRONMENT_SENSOR_ROLES
+
+# Plant Bed: Rollen abhängig vom Substrattyp
+PLANT_BED_ROLES_BY_MEDIUM: dict[str, list[str]] = {
+    MEDIUM_HYDROPONIC: AQUAPONIC_SENSOR_ROLES,  # Wurzeln im Wasser → Aquaponic Sensor
+    MEDIUM_SOIL:       HYDROPONIC_SENSOR_ROLES,  # Substrat/Erde     → Hydroponic Sensor
+}
+
+# Sensor-Typname zur Anzeige im Config Flow
+SENSOR_TYPE_NAME: dict[str, str] = {
+    MEDIUM_HYDROPONIC: "Aquaponic Sensor",
+    MEDIUM_SOIL:       "Hydroponic Sensor",
+}
+
 ROLES_BY_COMPONENT: dict[str, list[str]] = {
-    COMPONENT_FISH_TANK:  FISH_TANK_ROLES,
-    COMPONENT_PLANT_BED:  PLANT_BED_ROLES,
-    COMPONENT_GREENHOUSE: GREENHOUSE_ROLES,
+    COMPONENT_FISH_TANK:  AQUAPONIC_SENSOR_ROLES,
+    COMPONENT_GREENHOUSE: ENVIRONMENT_SENSOR_ROLES,
+    # Plant Bed: medium-abhängig, wird im Config Flow per PLANT_BED_ROLES_BY_MEDIUM aufgelöst
 }
 
 # ---------------------------------------------------------------------------

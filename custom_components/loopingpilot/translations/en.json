@@ -57,7 +57,7 @@
         }
       },
       "sensor_mapping": {
-        "title": "Sensors: {component_name} ({current}/{total})",
+        "title": "{component_name} – {sensor_type} ({current}/{total})",
         "description": "Assign HA sensor entities to measurement roles. All fields are optional — unmapped roles are ignored.",
         "data": {
           "water_temp": "Water temperature (°C)",

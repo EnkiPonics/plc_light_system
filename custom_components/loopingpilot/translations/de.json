@@ -57,7 +57,7 @@
         }
       },
       "sensor_mapping": {
-        "title": "Sensoren: {component_name} ({current}/{total})",
+        "title": "{component_name} – {sensor_type} ({current}/{total})",
         "description": "Weise HA-Sensor-Entities den Messrollen zu. Alle Felder sind optional — nicht belegte Rollen werden ignoriert.",
         "data": {
           "water_temp": "Wassertemperatur (°C)",
