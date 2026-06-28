@@ -9,6 +9,7 @@ from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.util import dt as dt_util
 
@@ -16,6 +17,8 @@ from .const import (
     COMPONENT_FISH_TANK,
     COMPONENT_GREENHOUSE,
     COMPONENT_PLANT_BED,
+    CONF_API_KEY,
+    CONF_ENDPOINT_URL,
     CONF_FISH_TANKS,
     CONF_FT_ID,
     CONF_FT_NAME,
@@ -33,6 +36,7 @@ from .const import (
     DEFAULT_LOOKBACK_SECONDS,
     DOMAIN,
 )
+from .outbound import post_feed
 from .recorder import fetch_history
 
 _LOGGER = logging.getLogger(__name__)
@@ -141,4 +145,24 @@ class LoopingPilotCoordinator(DataUpdateCoordinator):
             len(components),
             total_points,
         )
+
+        endpoint_url: str = config.get(CONF_ENDPOINT_URL, "")
+        api_key: str = config.get(CONF_API_KEY, "")
+        if endpoint_url:
+            session = async_get_clientsession(self.hass)
+            try:
+                receipt_id = await post_feed(session, endpoint_url, api_key, payload)
+                _LOGGER.info(
+                    "Feed gesendet: loop=%s receipt_id=%s",
+                    loop_name,
+                    receipt_id,
+                )
+                payload["last_receipt_id"] = receipt_id
+            except Exception as exc:  # noqa: BLE001
+                _LOGGER.warning(
+                    "Feed konnte nicht gesendet werden (loop=%s): %s",
+                    loop_name,
+                    exc,
+                )
+
         return payload
