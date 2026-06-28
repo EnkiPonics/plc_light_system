@@ -2,31 +2,85 @@
   "config": {
     "step": {
       "user": {
-        "title": "LoopingPilot Adapter",
-        "description": "Konfiguration folgt in Phase 2. Klicke auf Senden um fortzufahren."
-      },
-      "loops": {
-        "title": "Loops definieren",
-        "description": "Lege die physischen Kreisläufe (Loops) fest, die LoopingPilot überwachen soll.",
+        "title": "Loop definieren",
+        "description": "Ein Loop ist ein geschlossener Wasserkreislauf (z. B. Fischtank + Biofilter + Pflanzenbeet).",
         "data": {
-          "loop_id": "Loop-ID (z. B. loop_1)",
-          "loop_name": "Name (z. B. Fischtank + Pflanzenbett A)"
+          "loop_name": "Name des Loops"
         }
       },
-      "mapping": {
-        "title": "Sensor-Zuordnung",
-        "description": "Weise HA-Sensor-Entities den Rollen des Loops zu.",
+      "greenhouses_count": {
+        "title": "Greenhouses",
+        "description": "Wie viele Greenhouses / Gewächshäuser gehören zu diesem Loop? (0 = keines)",
         "data": {
-          "entity_id": "Sensor-Entity",
-          "role": "Rolle"
+          "gh_count": "Anzahl Greenhouses"
+        }
+      },
+      "greenhouse": {
+        "title": "Greenhouse {current} von {total}",
+        "description": "Name und Volumen dieses Greenhouse.",
+        "data": {
+          "gh_name": "Name",
+          "gh_volume_m3": "Volumen (m³)"
+        }
+      },
+      "fish_tanks_count": {
+        "title": "Fish Tanks",
+        "description": "Wie viele Fish Tanks gehören zu diesem Loop?",
+        "data": {
+          "ft_count": "Anzahl Fish Tanks"
+        }
+      },
+      "fish_tank": {
+        "title": "Fish Tank {current} von {total}",
+        "description": "Name, Volumen und optional zugehöriges Greenhouse.",
+        "data": {
+          "ft_name": "Name",
+          "ft_volume_l": "Volumen (Liter)",
+          "ft_greenhouse": "Greenhouse (optional)"
+        }
+      },
+      "plant_beds_count": {
+        "title": "Plant Beds",
+        "description": "Wie viele Plant Beds / Beete gehören zu diesem Loop?",
+        "data": {
+          "pb_count": "Anzahl Plant Beds"
+        }
+      },
+      "plant_bed": {
+        "title": "Plant Bed {current} von {total}",
+        "description": "Name, Volumen, Substrattyp und optional zugehöriges Greenhouse.",
+        "data": {
+          "pb_name": "Name",
+          "pb_volume_l": "Volumen (Liter)",
+          "pb_medium": "Substrattyp",
+          "pb_greenhouse": "Greenhouse (optional)"
+        }
+      },
+      "sensor_mapping": {
+        "title": "Sensoren: {component_name} ({current}/{total})",
+        "description": "Weise HA-Sensor-Entities den Messrollen zu. Alle Felder sind optional — nicht belegte Rollen werden ignoriert.",
+        "data": {
+          "water_temp": "Wassertemperatur (°C)",
+          "ph": "pH-Wert",
+          "do": "Gelöster Sauerstoff – DO (mg/L)",
+          "ec": "Elektrische Leitfähigkeit – EC (µS/cm)",
+          "water_level": "Wasserstand (cm / %)",
+          "soil_temp": "Substrattemperatur (°C)",
+          "substrate_moisture": "Substratfeuchte (%)",
+          "air_temp": "Lufttemperatur (°C)",
+          "humidity": "Relative Luftfeuchtigkeit (%)",
+          "co2": "CO₂-Konzentration (ppm)",
+          "par_ppfd": "PAR / PPFD (µmol/m²/s)",
+          "vpd": "Sättigungsdefizit – VPD (kPa)",
+          "leaf_temp": "Blatttemperatur – IR (°C)"
         }
       },
       "outbound": {
         "title": "LoopingPilot-Verbindung",
-        "description": "Konfiguriere den Endpunkt, an den die Daten gesendet werden.",
+        "description": "Endpunkt, an den die Zeitreihendaten gesendet werden.",
         "data": {
           "endpoint_url": "Endpunkt-URL",
-          "api_key": "API-Schlüssel",
+          "api_key": "API-Schlüssel (optional)",
           "interval_seconds": "Sendeintervall (Sekunden)",
           "lookback_seconds": "History-Zeitfenster (Sekunden)"
         }
@@ -37,9 +91,24 @@
       "invalid_api_key": "Ungültiger API-Schlüssel."
     },
     "abort": {
-      "already_configured": "LoopingPilot ist bereits konfiguriert."
+      "already_configured": "Ein Loop ist bereits konfiguriert. Weitere Loops als separate Integration hinzufügen."
     }
   },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Verbindungseinstellungen",
+        "data": {
+          "endpoint_url": "Endpunkt-URL",
+          "api_key": "API-Schlüssel",
+          "interval_seconds": "Sendeintervall (Sekunden)",
+          "lookback_seconds": "History-Zeitfenster (Sekunden)"
+        }
+      }
+    }
+  }
+}
+
   "options": {
     "step": {
       "init": {

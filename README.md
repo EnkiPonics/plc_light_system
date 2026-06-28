@@ -31,4 +31,16 @@ A Loop is a named physical circuit, for example: fish tank + biofilter + plant b
 - LoopingPilot endpoint (stub provided in `/stub/stub_server.py` for development)
 - Optional: Mosquitto MQTT broker (for MQTT outbound channel, Phase 5)
 
+---
+
+## Status
+
+| Version | Phase | Status |
+|---|---|---|
+| `0.1.0` | Integration skeleton loads | ✅ Released |
+| `0.2.0` | Config Flow / GUI mapping | ✅ Released |
+| `0.3.0` | Recorder history feed | 🔧 In progress |
+| `0.4.0` | Outbound feed to LoopingPilot | 📋 Planned |
+| `1.0.0` | First stable release | 📋 Planned |
+
 

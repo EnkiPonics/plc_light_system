@@ -5,41 +5,87 @@
 DOMAIN = "loopingpilot"
 
 # ---------------------------------------------------------------------------
-# Konfigurations-Keys (Config Entry / Config Flow)
+# Physical component types
 # ---------------------------------------------------------------------------
-CONF_LOOPS = "loops"
-CONF_LOOP_ID = "loop_id"
+COMPONENT_FISH_TANK = "fish_tank"
+COMPONENT_PLANT_BED = "plant_bed"
+COMPONENT_GREENHOUSE = "greenhouse"
+
+# Plant bed medium types
+MEDIUM_HYDROPONIC = "hydroponic"   # Wurzeln hängen direkt im Wasser
+MEDIUM_SOIL = "soil"               # Substrat / Erde / Wasser läuft durch
+
+# Sentinel für "kein Greenhouse zugeordnet"
+NO_GREENHOUSE = "__none__"
+
+# ---------------------------------------------------------------------------
+# Sensor roles per component type
+# ---------------------------------------------------------------------------
+FISH_TANK_ROLES: list[str] = [
+    "water_temp",    # °C       – Wassertemperatur
+    "ph",            # pH       – pH-Wert
+    "do",            # mg/L     – gelöster Sauerstoff (Dissolved Oxygen)
+    "ec",            # µS/cm    – elektrische Leitfähigkeit (Nährstoffe)
+    "water_level",   # cm / %   – Wasserstand
+]
+
+PLANT_BED_ROLES: list[str] = [
+    "soil_temp",           # °C   – Substrat-/Bodentemperatur
+    "substrate_moisture",  # %    – Substratfeuchte
+    "ph",                  # pH   – pH-Wert
+    "ec",                  # µS/cm – elektrische Leitfähigkeit (Nährstoffe)
+]
+
+GREENHOUSE_ROLES: list[str] = [
+    "air_temp",   # °C         – Lufttemperatur
+    "humidity",   # %          – relative Luftfeuchtigkeit
+    "co2",        # ppm        – CO₂-Konzentration
+    "par_ppfd",   # µmol/m²/s – Photosynthetisch aktive Strahlung (PAR/PPFD)
+    "vpd",        # kPa        – Sättigungsdefizit (Vapor Pressure Deficit)
+    "leaf_temp",  # °C         – Blatttemperatur (IR, Kondensationsrisiko)
+]
+
+ROLES_BY_COMPONENT: dict[str, list[str]] = {
+    COMPONENT_FISH_TANK:  FISH_TANK_ROLES,
+    COMPONENT_PLANT_BED:  PLANT_BED_ROLES,
+    COMPONENT_GREENHOUSE: GREENHOUSE_ROLES,
+}
+
+# ---------------------------------------------------------------------------
+# Configuration keys
+# ---------------------------------------------------------------------------
 CONF_LOOP_NAME = "loop_name"
-CONF_ROLES = "roles"
-CONF_ROLE = "role"
-CONF_ENTITY_ID = "entity_id"
+
+# Greenhouses
+CONF_GREENHOUSES = "greenhouses"
+CONF_GH_ID = "gh_id"
+CONF_GH_NAME = "gh_name"
+CONF_GH_VOLUME_M3 = "gh_volume_m3"
+
+# Fish Tanks
+CONF_FISH_TANKS = "fish_tanks"
+CONF_FT_ID = "ft_id"
+CONF_FT_NAME = "ft_name"
+CONF_FT_VOLUME_L = "ft_volume_l"
+CONF_FT_GREENHOUSE = "ft_greenhouse"
+
+# Plant Beds
+CONF_PLANT_BEDS = "plant_beds"
+CONF_PB_ID = "pb_id"
+CONF_PB_NAME = "pb_name"
+CONF_PB_VOLUME_L = "pb_volume_l"
+CONF_PB_MEDIUM = "pb_medium"
+CONF_PB_GREENHOUSE = "pb_greenhouse"
+
+# Sensor mapping
+CONF_SENSOR_MAPPING = "sensor_mapping"
+
+# Outbound
 CONF_ENDPOINT_URL = "endpoint_url"
 CONF_API_KEY = "api_key"
 CONF_INTERVAL_SECONDS = "interval_seconds"
 CONF_LOOKBACK_SECONDS = "lookback_seconds"
 
-# ---------------------------------------------------------------------------
 # Defaults
-# ---------------------------------------------------------------------------
 DEFAULT_INTERVAL_SECONDS: int = 300    # 5 Minuten
 DEFAULT_LOOKBACK_SECONDS: int = 3600   # 60 Minuten
-
-# ---------------------------------------------------------------------------
-# Loop-Rollen
-# Jede Rolle repräsentiert einen Messparameter innerhalb eines Loops.
-# ---------------------------------------------------------------------------
-LOOP_ROLES: list[str] = [
-    "water_temp",       # °C   – Wassertemperatur
-    "ph",               # pH   – pH-Wert
-    "ec",               # µS/cm – elektrische Leitfähigkeit
-    "do",               # mg/L  – gelöster Sauerstoff
-    "flow_rate",        # L/h   – Durchflussrate
-    "ammonia",          # mg/L  – Ammoniak / Ammonium (NH3/NH4)
-    "nitrite",          # mg/L  – Nitrit (NO2)
-    "nitrate",          # mg/L  – Nitrat (NO3)
-    "water_level",      # cm / % – Wasserstand
-    "ambient_temp",     # °C   – Umgebungstemperatur
-    "light_intensity",  # lux  – Lichtintensität
-    "co2",              # ppm  – CO₂-Konzentration
-    "custom",           # frei definierbar
-]
