@@ -108,16 +108,3 @@
     }
   }
 }
-
-  "options": {
-    "step": {
-      "init": {
-        "title": "Einstellungen anpassen",
-        "data": {
-          "interval_seconds": "Sendeintervall (Sekunden)",
-          "lookback_seconds": "History-Zeitfenster (Sekunden)"
-        }
-      }
-    }
-  }
-}
