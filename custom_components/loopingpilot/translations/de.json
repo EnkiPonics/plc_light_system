@@ -96,8 +96,28 @@
   },
   "options": {
     "step": {
-      "init": {
-        "title": "Verbindungseinstellungen",
+      "sensor_mapping": {
+        "title": "{component_name} \u2013 {sensor_type} ({current}/{total})",
+        "description": "Entity-Zuweisung aktualisieren. Alle Felder sind optional \u2014 nicht belegte Rollen werden ignoriert.",
+        "data": {
+          "water_temp": "Wassertemperatur (\u00b0C)",
+          "ph": "pH-Wert",
+          "do": "Gel\u00f6ster Sauerstoff \u2013 DO (mg/L)",
+          "ec": "Elektrische Leitf\u00e4higkeit \u2013 EC (\u00b5S/cm)",
+          "water_level": "Wasserstand (cm / %)",
+          "soil_temp": "Substrattemperatur (\u00b0C)",
+          "substrate_moisture": "Substratfeuchte (%)",
+          "air_temp": "Lufttemperatur (\u00b0C)",
+          "humidity": "Relative Luftfeuchtigkeit (%)",
+          "co2": "CO\u2082-Konzentration (ppm)",
+          "par_ppfd": "PAR / PPFD (\u00b5mol/m\u00b2/s)",
+          "vpd": "S\u00e4ttigungsdefizit \u2013 VPD (kPa)",
+          "leaf_temp": "Blatttemperatur \u2013 IR (\u00b0C)"
+        }
+      },
+      "outbound": {
+        "title": "LoopingPilot-Verbindung",
+        "description": "Endpunkt und Timing-Einstellungen aktualisieren.",
         "data": {
           "endpoint_url": "Endpunkt-URL",
           "api_key": "API-Schlüssel",

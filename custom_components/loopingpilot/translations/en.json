@@ -96,8 +96,28 @@
   },
   "options": {
     "step": {
-      "init": {
-        "title": "Connection settings",
+      "sensor_mapping": {
+        "title": "{component_name} \u2013 {sensor_type} ({current}/{total})",
+        "description": "Update entity assignments. All fields are optional \u2014 unmapped roles are ignored.",
+        "data": {
+          "water_temp": "Water temperature (\u00b0C)",
+          "ph": "pH value",
+          "do": "Dissolved oxygen \u2013 DO (mg/L)",
+          "ec": "Electrical conductivity \u2013 EC (\u00b5S/cm)",
+          "water_level": "Water level (cm / %)",
+          "soil_temp": "Substrate temperature (\u00b0C)",
+          "substrate_moisture": "Substrate moisture (%)",
+          "air_temp": "Air temperature (\u00b0C)",
+          "humidity": "Relative humidity (%)",
+          "co2": "CO\u2082 concentration (ppm)",
+          "par_ppfd": "PAR / PPFD (\u00b5mol/m\u00b2/s)",
+          "vpd": "Vapour pressure deficit \u2013 VPD (kPa)",
+          "leaf_temp": "Leaf surface temperature \u2013 IR (\u00b0C)"
+        }
+      },
+      "outbound": {
+        "title": "LoopingPilot connection",
+        "description": "Update endpoint and timing settings.",
         "data": {
           "endpoint_url": "Endpoint URL",
           "api_key": "API key",

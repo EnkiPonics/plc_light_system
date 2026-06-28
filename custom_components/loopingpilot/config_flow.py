@@ -22,6 +22,7 @@ from homeassistant.helpers.selector import (
     TextSelectorType,
 )
 
+from .options_flow import LoopingPilotOptionsFlow
 from .const import (
     AQUAPONIC_SENSOR_ROLES,
     COMPONENT_FISH_TANK,
@@ -66,6 +67,12 @@ class LoopingPilotConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Wizard: Loop-Struktur und Sensor-Mapping konfigurieren."""
 
     VERSION = 1
+
+    @staticmethod
+    def async_get_options_flow(
+        config_entry: config_entries.ConfigEntry,
+    ) -> LoopingPilotOptionsFlow:
+        return LoopingPilotOptionsFlow(config_entry)
 
     def __init__(self) -> None:
         self._loop_name: str = ""

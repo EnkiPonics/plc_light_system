@@ -1,7 +1,7 @@
 {
   "domain": "loopingpilot",
   "name": "LoopingPilot Adapter",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "documentation": "https://github.com/EnkiPonics/plc_light_system",
   "issue_tracker": "https://github.com/EnkiPonics/plc_light_system/issues",
   "dependencies": ["recorder"],
